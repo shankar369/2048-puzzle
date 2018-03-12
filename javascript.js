@@ -100,22 +100,23 @@ document.onkeydown = function(event){
 
 
 function moveLeft(){
+    shiftLeft();
 
     for(var i =0;i<size;i++){
         for(var j=0;j<size;j++){
             rand = document.getElementById("block-"+i+'-'+j);
-            if(rand.innerHTML>0){
+            if(rand.innerHTML!=''){
                 for(var k=j+1;k<size;k++){
                     var rand2 = document.getElementById("block-"+i+'-'+k);
-                    if(rand2.innerHTML>0){
+                    if(rand2.innerHTML!=''){
                         if(rand.innerHTML == rand2.innerHTML){
                             rand.innerHTML =Number(rand.innerHTML)+ Number(rand2.innerHTML);
                             rand2.innerHTML ='';
-                            j=k;
+                            j=k-1;
                             break;
                         }
                         else{
-                            j=k;
+                            j=k-1;
                             break;
                         }
                     }
@@ -125,26 +126,28 @@ function moveLeft(){
         }
 
         }
-        anotherMove()
+        shiftLeft();
+        anotherMove();
 
 }
 
 function moveRight(){
+    shiftRight();
     for(var i =size-1;i>=0;i--){
         for(var j=size-1;j>=0;j--){
             rand = document.getElementById("block-"+i+'-'+j);
-            if(rand.innerHTML>0){
+            if(rand.innerHTML!=''){
                 for(var k=j-1;k>=0;k--){
                     var rand2 = document.getElementById("block-"+i+'-'+k);
-                    if(rand2.innerHTML>0){
+                    if(rand2.innerHTML!=''){
                         if(rand.innerHTML == rand2.innerHTML){
                             rand.innerHTML =Number(rand.innerHTML)+ Number(rand2.innerHTML);
                             rand2.innerHTML ='';
-                            j=k;
+                            j=k+1;
                             break;
                         }
                         else{
-                            j=k;
+                            j=k+1;
                             break;
                         }
                     }
@@ -154,27 +157,28 @@ function moveRight(){
         }
 
         }
-        anotherMove()
+        shiftRight();
+        anotherMove();
 
  }
 
  function moveDown(){
-
+    shiftDown();
     for(var j =size-1;j>=0;j--){
         for(var i=size-1;i>=0;i--){
             rand = document.getElementById("block-"+i+'-'+j);
-            if(rand.innerHTML>0){
+            if(rand.innerHTML!=''){
                 for(var k=i-1;k>=0;k--){
                     var rand2 = document.getElementById("block-"+k+'-'+j);
-                    if(rand2.innerHTML>0){
+                    if(rand2.innerHTML!=''){
                         if(rand.innerHTML == rand2.innerHTML){
                             rand.innerHTML =Number(rand.innerHTML)+ Number(rand2.innerHTML);
                             rand2.innerHTML ='';
-                            i=k;
+                            i=k+1;
                             break;
                         }
                         else{
-                            i=k;
+                            i=k+1;
                             break;
                         }
                     }
@@ -184,27 +188,28 @@ function moveRight(){
         }
 
         }
-        anotherMove()
+        shiftDown();
+        anotherMove();
 
  }
 
  function moveUp(){
-
+    shiftUp()
     for(var j =0;j<size;j++){
         for(var i=0;i<size;i++){
             rand = document.getElementById("block-"+i+'-'+j);
-            if(rand.innerHTML>0){
+            if(rand.innerHTML!=''){
                 for(var k=i+1;k<size;k++){
                     var rand2 = document.getElementById("block-"+k+'-'+j);
-                    if(rand2.innerHTML>0){
+                    if(rand2.innerHTML!=''){
                         if(rand.innerHTML == rand2.innerHTML){
                             rand.innerHTML =Number(rand.innerHTML)+ Number(rand2.innerHTML);
                             rand2.innerHTML ='';
-                            i=k;
+                            i=k-1;
                             break;
                         }
                         else{
-                            i=k;
+                            i=k-1;
                             break;
                         }
                     }
@@ -214,9 +219,89 @@ function moveRight(){
         }
 
         }
-        anotherMove()
+        shiftUp();
+        anotherMove();
 
  }
+
+
+ function shiftLeft(){
+    for(var i=0;i<size;i++){
+        for(var j=0;j<size;j++){
+            var block1 = document.getElementById("block-"+i+'-'+j);
+            if(block1.innerHTML == ''){
+                for(var k=j+1;k<size;k++){
+                    var block2 = document.getElementById("block-"+i+'-'+k);
+                    if(block2.innerHTML!=''){
+                        block1.innerHTML = block2.innerHTML;
+                        block2.innerHTML = '';
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+ }
+ 
+ function shiftRight(){
+
+    for(var i=size-1;i>=0;i--){
+        for(var j=size-1;j>=0;j--){
+            var block1 = document.getElementById("block-"+i+'-'+j);
+            if(block1.innerHTML == ''){
+                for(var k=j-1;k>=0;k--){
+                    var block2 = document.getElementById("block-"+i+'-'+k);
+                    if(block2.innerHTML!=''){
+                        block1.innerHTML = block2.innerHTML;
+                        block2.innerHTML = '';
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+function shiftUp(){
+
+    for(var j=0;j<size;j++){
+        for(var i=0;i<size;i++){
+            var block1 = document.getElementById("block-"+i+'-'+j);
+            if(block1.innerHTML == ''){
+                for(var k=i+1;k<size;k++){
+                    var block2 = document.getElementById("block-"+k+'-'+j);
+                    if(block2.innerHTML!=''){
+                        block1.innerHTML = block2.innerHTML;
+                        block2.innerHTML = '';
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    
+}
+
+function shiftDown(){
+    for(var j=size-1;j>=0;j--){
+        for(var i=size-1;i>=0;i--){
+            var block1 = document.getElementById("block-"+i+'-'+j);
+            if(block1.innerHTML == ''){
+                for(var k=i-1;k>=0;k--){
+                    var block2 = document.getElementById("block-"+k+'-'+j);
+                    if(block2.innerHTML!=''){
+                        block1.innerHTML = block2.innerHTML;
+                        block2.innerHTML = '';
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
         
 
 
