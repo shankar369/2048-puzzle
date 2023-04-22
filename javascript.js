@@ -1,16 +1,16 @@
-var myForm = document.forms.value;
+// var myForm = document.forms.value;
 
 
-myForm.onsubmit = function(){
+// myForm?.onsubmit = function(){
     
-   var size = Number(myForm.size.value);
+//    var size = Number(myForm.size.value);
 
-   document.write("size is :"+size);
+//    document.write("size is :"+size);
 
 
    
 
-};
+// };
 
 var size =4;
 
@@ -65,37 +65,45 @@ rand = document.getElementById("block-"+x2+'-'+y2);
 
 
 rand.innerHTML=2;
-
+let gameOver = false;
 document.onkeydown = function(event){
-    if(event.keyCode == 37 || event.keyCode == 65 )moveLeft();
-    if(event.keyCode == 38 || event.keyCode == 87 )moveUp();
-    if(event.keyCode == 39 || event.keyCode == 68 )moveRight();
-    if(event.keyCode == 40 || event.keyCode == 83 )moveDown();
+    if(event.keyCode == 37 || event.keyCode == 65 ) if(!gameOver) moveLeft();
+    if(event.keyCode == 38 || event.keyCode == 87 ) if(!gameOver) moveUp();
+    if(event.keyCode == 39 || event.keyCode == 68 ) if(!gameOver) moveRight();
+    if(event.keyCode == 40 || event.keyCode == 83 ) if(!gameOver) moveDown();
+}
+
+function checkGameOver() {
+    for(let i = 0; i< 4; i++) {
+        for(let j=0;j<4;j++){
+            if(document.getElementById("block-"+i+"-"+j).innerHTML === "") {
+                return false
+            }
+        }
+    }
+    return true
 }
 
 function anotherMove(){
-    var x2 = Math.floor((Math.random() * size ));
-    var y2 = Math.floor((Math.random() * size ));
-
-    var rand = document.getElementById("block-"+x2+'-'+y2);
-    
-    while(Number(rand.innerHTML) != '')
-    {
-        x2 = Math.floor((Math.random() * size ));
-        y2 = Math.floor((Math.random() * size ));
-        rand = document.getElementById("block-"+x2+'-'+y2);
+    if(checkGameOver()) {
+        gameOver = true;
+        document.getElementById('game-status').innerText = "Game Over :("
     }
-    
-    rand.innerHTML=2;
-    
+    else{
+        var x2 = Math.floor((Math.random() * size ));
+        var y2 = Math.floor((Math.random() * size ));
 
-document.onkeydown = function(event){
-    if(event.keyCode == 37 || event.keyCode == 65 )moveLeft();
-    if(event.keyCode == 38 || event.keyCode == 87 )moveUp();
-    if(event.keyCode == 39 || event.keyCode == 68 )moveRight();
-    if(event.keyCode == 40 || event.keyCode == 83 )moveDown();
-}
-
+        var rand = document.getElementById("block-"+x2+'-'+y2);
+        
+        while(Number(rand.innerHTML) != '')
+        {
+            x2 = Math.floor((Math.random() * size ));
+            y2 = Math.floor((Math.random() * size ));
+            rand = document.getElementById("block-"+x2+'-'+y2);
+        }
+        
+        rand.innerHTML=2;
+    }
 }
 
 
